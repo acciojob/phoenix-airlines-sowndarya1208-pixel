@@ -5,6 +5,13 @@ const FlightSearch = ({ goBooking }) => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
 
+  const searchFlight = () => {
+    if (from && to) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div>
 
@@ -20,29 +27,30 @@ const FlightSearch = ({ goBooking }) => {
         Round Trip
       </label>
 
-      <div>
+      <br/>
 
-        <select onChange={(e) => setFrom(e.target.value)}>
-          <option value="">From</option>
-          <option>Delhi</option>
-          <option>Chennai</option>
-        </select>
+      <input
+        type="text"
+        placeholder="From"
+        onChange={(e) => setFrom(e.target.value)}
+      />
 
-        <select onChange={(e) => setTo(e.target.value)}>
-          <option value="">To</option>
-          <option>Mumbai</option>
-          <option>Bangalore</option>
-        </select>
+      <input
+        type="text"
+        placeholder="To"
+        onChange={(e) => setTo(e.target.value)}
+      />
 
-        <button>Search</button>
-
-      </div>
+      <button onClick={searchFlight}>Search</button>
 
       <ul>
         {from && to ? (
           <li>
             {from} → {to}
-            <button className="book-flight" onClick={goBooking}>
+            <button
+              className="book-flight"
+              onClick={() => goBooking({ from, to })}
+            >
               Book
             </button>
           </li>

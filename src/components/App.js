@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div>
 
-      <h1>Flight Booking App</h1>
+      <h1>Welcome to Flight Booking App</h1>
 
       {page === "home" && (
         <button onClick={() => setPage("search")}>

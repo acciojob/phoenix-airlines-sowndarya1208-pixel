@@ -1,68 +1,90 @@
 import React, { useState } from "react";
 import "../styles/App.css";
 
+const flightsData = [
+  { id: 1, from: "Delhi", to: "Mumbai", price: 5000 },
+  { id: 2, from: "Chennai", to: "Bangalore", price: 3000 },
+  { id: 3, from: "Delhi", to: "Chennai", price: 6000 }
+];
+
 const App = () => {
 
-  const [page, setPage] = useState("search");
+  const [tripType, setTripType] = useState("oneway");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [flights, setFlights] = useState([]);
+
+  const searchFlights = () => {
+    const result = flightsData.filter(
+      (f) => f.from === from && f.to === to
+    );
+    setFlights(result);
+  };
 
   return (
     <div>
 
-      {/* Flight Search Page */}
-      {page === "search" && (
-        <div>
+      <h1>Flight Booking App</h1>
 
-          <h2>Flight Search</h2>
+      <div>
 
-          <input type="text" placeholder="Source" />
-          <input type="text" placeholder="Destination" />
-          <input type="date" />
+        <label>
+          <input
+            type="radio"
+            name="trip"
+            value="oneway"
+            checked={tripType === "oneway"}
+            onChange={(e) => setTripType(e.target.value)}
+          />
+          One Way
+        </label>
 
-          <button
-            className="book-flight"
-            onClick={() => setPage("booking")}
-          >
-            Book Flight
-          </button>
+        <label>
+          <input
+            type="radio"
+            name="trip"
+            value="roundtrip"
+            checked={tripType === "roundtrip"}
+            onChange={(e) => setTripType(e.target.value)}
+          />
+          Round Trip
+        </label>
 
-        </div>
-      )}
+      </div>
 
-      {/* Flight Booking Page */}
-      {page === "booking" && (
-        <div>
+      <div>
 
-          <h2>Passenger Details</h2>
+        <select value={from} onChange={(e) => setFrom(e.target.value)}>
+          <option value="">From</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Chennai">Chennai</option>
+        </select>
 
-          <input type="text" placeholder="Name" />
-          <input type="text" placeholder="Email" />
-          <input type="text" placeholder="Phone" />
+        <select value={to} onChange={(e) => setTo(e.target.value)}>
+          <option value="">To</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="Bangalore">Bangalore</option>
+          <option value="Chennai">Chennai</option>
+        </select>
 
-          <button onClick={() => setPage("confirm")}>
-            Confirm Booking
-          </button>
+        <button onClick={searchFlights}>Search Flights</button>
 
-        </div>
-      )}
+      </div>
 
-      {/* Confirmation Page */}
-      {page === "confirm" && (
-        <div>
-
-          <h2>Booking Confirmed</h2>
-
-          <p>Your flight ticket has been booked successfully.</p>
-
-          <button onClick={() => setPage("search")}>
-            Go Home
-          </button>
-
-        </div>
-      )}
+      <ul>
+        {flights.length === 0 ? (
+          <li>No Flights Available</li>
+        ) : (
+          flights.map((flight) => (
+            <li key={flight.id}>
+              {flight.from} → {flight.to} ₹{flight.price}
+            </li>
+          ))
+        )}
+      </ul>
 
     </div>
   );
 };
 
 export default App;
-

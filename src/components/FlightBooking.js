@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setPassenger } from "../redux/bookingSlice";
+import { setPassenger } from "../state/bookingSlice";
 
 const FlightBooking = ({ goConfirm }) => {
 

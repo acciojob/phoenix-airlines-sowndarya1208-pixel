@@ -5,29 +5,32 @@ import Confirmation from "./Confirmation";
 
 const App = () => {
 
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState("search");
+  const [flight, setFlight] = useState(null);
 
   return (
     <div>
 
       <h1>Welcome to Flight Booking App</h1>
 
-      {page === "home" && (
-        <button onClick={() => setPage("search")}>
-          Search Flights
-        </button>
-      )}
-
       {page === "search" && (
-        <FlightSearch goBooking={() => setPage("booking")} />
+        <FlightSearch
+          goBooking={(flightData) => {
+            setFlight(flightData);
+            setPage("booking");
+          }}
+        />
       )}
 
       {page === "booking" && (
-        <FlightBooking goConfirm={() => setPage("confirm")} />
+        <FlightBooking
+          flight={flight}
+          goConfirm={() => setPage("confirm")}
+        />
       )}
 
       {page === "confirm" && (
-        <Confirmation goHome={() => setPage("home")} />
+        <Confirmation goHome={() => setPage("search")} />
       )}
 
     </div>

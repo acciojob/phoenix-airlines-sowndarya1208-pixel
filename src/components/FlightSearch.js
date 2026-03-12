@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setFlight } from "../redux/bookingSlice";
 
 const FlightSearch = ({ goBooking }) => {
+
+  const dispatch = useDispatch();
 
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
 
-  const searchFlight = () => {
-    if (from && to) {
-      return true;
-    }
-    return false;
+  const handleBook = () => {
+
+    dispatch(setFlight({ from, to }));
+
+    goBooking();
   };
 
   return (
@@ -18,12 +22,12 @@ const FlightSearch = ({ goBooking }) => {
       <h2>Search Flights</h2>
 
       <label>
-        <input type="radio" name="trip" />
+        <input type="radio" name="trip"/>
         One Way
       </label>
 
       <label>
-        <input type="radio" name="trip" />
+        <input type="radio" name="trip"/>
         Round Trip
       </label>
 
@@ -32,25 +36,22 @@ const FlightSearch = ({ goBooking }) => {
       <input
         type="text"
         placeholder="From"
-        onChange={(e) => setFrom(e.target.value)}
+        onChange={(e)=>setFrom(e.target.value)}
       />
 
       <input
         type="text"
         placeholder="To"
-        onChange={(e) => setTo(e.target.value)}
+        onChange={(e)=>setTo(e.target.value)}
       />
 
-      <button onClick={searchFlight}>Search</button>
+      <button>Search</button>
 
       <ul>
         {from && to ? (
           <li>
             {from} → {to}
-            <button
-              className="book-flight"
-              onClick={() => goBooking({ from, to })}
-            >
+            <button className="book-flight" onClick={handleBook}>
               Book
             </button>
           </li>

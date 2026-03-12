@@ -1,23 +1,20 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { setPassenger } from "../state/bookingSlice";
 
 const FlightBooking = ({ goConfirm }) => {
-
-  const dispatch = useDispatch();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [error, setError] = useState("");
 
-  const submit = () => {
+  const submitForm = () => {
 
     if (!name || !email || !phone) {
-      alert("All fields required");
+      setError("All fields are required");
       return;
     }
 
-    dispatch(setPassenger({ name, email, phone }));
+    setError("");
     goConfirm();
   };
 
@@ -44,7 +41,9 @@ const FlightBooking = ({ goConfirm }) => {
         onChange={(e) => setPhone(e.target.value)}
       />
 
-      <button onClick={submit}>
+      {error && <p>{error}</p>}
+
+      <button onClick={submitForm}>
         Confirm Booking
       </button>
 

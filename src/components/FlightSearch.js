@@ -9,10 +9,15 @@ const FlightSearch = ({ goBooking }) => {
   const [tripType, setTripType] = useState("oneway");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
-  const [searched, setSearched] = useState(false);
+  const [result, setResult] = useState(null);
 
   const handleSearch = () => {
-    setSearched(true);
+
+    if (from && to) {
+      setResult(`${from} ${to}`);
+    } else {
+      setResult("No Flights Available");
+    }
   };
 
   const handleBook = () => {
@@ -55,7 +60,7 @@ const FlightSearch = ({ goBooking }) => {
         Round Trip
       </label>
 
-      <br />
+      <br/>
 
       <input
         type="text"
@@ -74,18 +79,20 @@ const FlightSearch = ({ goBooking }) => {
       <button onClick={handleSearch}>Search</button>
 
       <ul>
-        {searched ? (
-          from && to ? (
-            <li>
-              {from} → {to}
-              <button className="book-flight" onClick={handleBook}>
-                Book
-              </button>
-            </li>
-          ) : (
-            <li>No Flights Available</li>
-          )
-        ) : null}
+
+        {result === "No Flights Available" && (
+          <li>No Flights Available</li>
+        )}
+
+        {result && result !== "No Flights Available" && (
+          <li>
+            {from} → {to}
+            <button className="book-flight" onClick={handleBook}>
+              Book
+            </button>
+          </li>
+        )}
+
       </ul>
 
     </div>

@@ -12,6 +12,9 @@ const FlightBooking = ({ goConfirm }) => {
   const [mobile,setMobile] = useState("");
   const [error,setError] = useState("");
 
+  // Added city names list
+  const cities = ["Bengaluru","Mumbai","Delhi","Chennai"];
+
   const handleSubmit = (e) => {
 
     e.preventDefault();
@@ -36,7 +39,15 @@ const FlightBooking = ({ goConfirm }) => {
   return (
     <div>
 
-      <h2>Passenger Details</h2>
+      <h2>Booking Confirmation For Flight Air India (AI-275)</h2>
+
+      {/* Added city list */}
+      <h3>Available Cities</h3>
+      <ul>
+        {cities.map((city,index)=>(
+          <li key={index}>{city}</li>
+        ))}
+      </ul>
 
       <form onSubmit={handleSubmit}>
 

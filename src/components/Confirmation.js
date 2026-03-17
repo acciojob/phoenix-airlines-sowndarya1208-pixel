@@ -1,30 +1,16 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 const Confirmation = ({ goHome }) => {
 
-  const flight = useSelector((state)=>state.booking.flight);
-  const passenger = useSelector((state)=>state.booking.passenger);
-
   return (
-    <div>
+    <div style={{textAlign:"center", marginTop:"50px"}}>
 
-      <h2>Booking Confirmed</h2>
-
-      {flight && (
-        <p>
-          Flight: {flight.from} → {flight.to}
-        </p>
-      )}
-
-      {passenger && (
-        <p>
-          Passenger: {passenger.name}
-        </p>
-      )}
+      <p>
+        Thank you for the Booking. Click the below button to return to home page.
+      </p>
 
       <button onClick={goHome}>
-        Go Home
+        BACK TO HOME
       </button>
 
     </div>

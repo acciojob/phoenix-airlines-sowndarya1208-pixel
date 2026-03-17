@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setPassenger } from "../state/bookingSlice";
+import { setPassenger } from "../redux/bookingSlice";
 
 const FlightBooking = ({ goConfirm }) => {
 
@@ -12,7 +12,9 @@ const FlightBooking = ({ goConfirm }) => {
   const [mobile,setMobile] = useState("");
   const [error,setError] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
 
     if(!firstName || !lastName || !email || !mobile){
       setError("All fields are required");
@@ -34,49 +36,45 @@ const FlightBooking = ({ goConfirm }) => {
   return (
     <div>
 
-      <h2>Booking Confirmation For Flight Air India (AI-275) </h2>
+      <h2>Passenger Details</h2>
 
-      <div>
+      <form onSubmit={handleSubmit}>
+
         <label>First Name</label><br/>
         <input
           type="text"
           value={firstName}
           onChange={(e)=>setFirstName(e.target.value)}
-        />
-      </div>
+        /><br/><br/>
 
-      <div>
         <label>Last Name</label><br/>
         <input
           type="text"
           value={lastName}
           onChange={(e)=>setLastName(e.target.value)}
-        />
-      </div>
+        /><br/><br/>
 
-      <div>
         <label>Email ID</label><br/>
         <input
           type="text"
           value={email}
           onChange={(e)=>setEmail(e.target.value)}
-        />
-      </div>
+        /><br/><br/>
 
-      <div>
         <label>Mobile Number</label><br/>
         <input
           type="text"
           value={mobile}
           onChange={(e)=>setMobile(e.target.value)}
-        />
-      </div>
+        /><br/><br/>
 
-      {error && <p>{error}</p>}
+        {error && <p>{error}</p>}
 
-      <button onClick={handleSubmit}>
-        Confirm Booking
-      </button>
+        <button type="submit">
+          Confirm Booking
+        </button>
+
+      </form>
 
     </div>
   );

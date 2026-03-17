@@ -12,6 +12,9 @@ const FlightSearch = ({ goBooking }) => {
   const [result, setResult] = useState(null);
   const [journeyDate, setJourneyDate] = useState("");
 
+  // ✅ Added cities list
+  const cities = ["Bengaluru","Mumbai","Delhi","Chennai"];
+
   const handleSearch = () => {
 
     if (from && to) {
@@ -70,12 +73,30 @@ const FlightSearch = ({ goBooking }) => {
         onChange={(e) => setFrom(e.target.value)}
       />
 
+      {/* ✅ Added city list for source */}
+      <ul>
+        {cities.map((city,index)=>(
+          <li key={index} onClick={()=>setFrom(city)}>
+            {city}
+          </li>
+        ))}
+      </ul>
+
       <input
         type="text"
         placeholder="Destination City"
         value={to}
         onChange={(e) => setTo(e.target.value)}
       />
+
+      {/* ✅ Added city list for destination */}
+      <ul>
+        {cities.map((city,index)=>(
+          <li key={index} onClick={()=>setTo(city)}>
+            {city}
+          </li>
+        ))}
+      </ul>
 
       <input 
           type="date"

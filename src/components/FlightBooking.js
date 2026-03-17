@@ -12,8 +12,14 @@ const FlightBooking = ({ goConfirm }) => {
   const [mobile,setMobile] = useState("");
   const [error,setError] = useState("");
 
-  // Added city names list
-  const cities = ["Bengaluru","Mumbai","Delhi","Chennai"];
+  // Correct cities for AccioJob test
+  const cities = [
+    "Kolkata",
+    "Mumbai",
+    "New Delhi",
+    "Chennai",
+    "Bengaluru"
+  ];
 
   const handleSubmit = (e) => {
 
@@ -41,8 +47,8 @@ const FlightBooking = ({ goConfirm }) => {
 
       <h2>Booking Confirmation For Flight Air India (AI-275)</h2>
 
-      {/* Added city list */}
       <h3>Available Cities</h3>
+
       <ul>
         {cities.map((city,index)=>(
           <li key={index}>{city}</li>

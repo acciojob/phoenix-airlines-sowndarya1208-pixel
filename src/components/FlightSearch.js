@@ -10,6 +10,7 @@ const FlightSearch = ({ goBooking }) => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [result, setResult] = useState(null);
+  const [journeyDate, setJourneyDate] = useState("");
 
   const handleSearch = () => {
 
@@ -64,19 +65,25 @@ const FlightSearch = ({ goBooking }) => {
 
       <input
         type="text"
-        placeholder="From"
+        placeholder="Source City"
         value={from}
         onChange={(e) => setFrom(e.target.value)}
       />
 
       <input
         type="text"
-        placeholder="To"
+        placeholder="Destination City"
         value={to}
         onChange={(e) => setTo(e.target.value)}
       />
 
-      <button onClick={handleSearch}>Search</button>
+      <input 
+          type="date"
+          placeholder="dd/mm/yy"
+          onChange={(e) => setJourneyDate(e.target.value)}
+      />
+
+      <button onClick={handleSearch}>Search Flight</button>
 
       <ul>
 

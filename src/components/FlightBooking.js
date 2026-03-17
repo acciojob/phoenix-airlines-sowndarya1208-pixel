@@ -6,19 +6,27 @@ const FlightBooking = ({ goConfirm }) => {
 
   const dispatch = useDispatch();
 
-  const [name,setName] = useState("");
+  const [firstName,setFirstName] = useState("");
+  const [lastName,setLastName] = useState("");
   const [email,setEmail] = useState("");
-  const [phone,setPhone] = useState("");
+  const [mobile,setMobile] = useState("");
   const [error,setError] = useState("");
 
-  const submitForm = () => {
+  const handleSubmit = () => {
 
-    if(!name || !email || !phone){
-      setError("All fields required");
+    if(!firstName || !lastName || !email || !mobile){
+      setError("All fields are required");
       return;
     }
 
-    dispatch(setPassenger({name,email,phone}));
+    dispatch(
+      setPassenger({
+        firstName,
+        lastName,
+        email,
+        mobile
+      })
+    );
 
     goConfirm();
   };
@@ -26,17 +34,47 @@ const FlightBooking = ({ goConfirm }) => {
   return (
     <div>
 
-      <h2>Passenger Details</h2>
+      <h2>Booking Confirmation For Flight Air India (AI-275) </h2>
 
-      <input type="text" placeholder="Name" onChange={(e)=>setName(e.target.value)}/>
+      <div>
+        <label>First Name</label><br/>
+        <input
+          type="text"
+          value={firstName}
+          onChange={(e)=>setFirstName(e.target.value)}
+        />
+      </div>
 
-      <input type="text" placeholder="Email" onChange={(e)=>setEmail(e.target.value)}/>
+      <div>
+        <label>Last Name</label><br/>
+        <input
+          type="text"
+          value={lastName}
+          onChange={(e)=>setLastName(e.target.value)}
+        />
+      </div>
 
-      <input type="text" placeholder="Phone" onChange={(e)=>setPhone(e.target.value)}/>
+      <div>
+        <label>Email ID</label><br/>
+        <input
+          type="text"
+          value={email}
+          onChange={(e)=>setEmail(e.target.value)}
+        />
+      </div>
+
+      <div>
+        <label>Mobile Number</label><br/>
+        <input
+          type="text"
+          value={mobile}
+          onChange={(e)=>setMobile(e.target.value)}
+        />
+      </div>
 
       {error && <p>{error}</p>}
 
-      <button onClick={submitForm}>
+      <button onClick={handleSubmit}>
         Confirm Booking
       </button>
 

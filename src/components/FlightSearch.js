@@ -12,7 +12,9 @@ const FlightSearch = ({ goBooking }) => {
   const [result, setResult] = useState(null);
   const [journeyDate, setJourneyDate] = useState("");
 
-  // ✅ Added cities list
+  const [showFrom,setShowFrom] = useState(false);
+  const [showTo,setShowTo] = useState(false);
+
   const cities = ["Bengaluru","Mumbai","Delhi","Chennai"];
 
   const handleSearch = () => {
@@ -66,42 +68,47 @@ const FlightSearch = ({ goBooking }) => {
 
       <br/>
 
+      {/* Source City */}
       <input
         type="text"
         placeholder="Source City"
         value={from}
-        onChange={(e) => setFrom(e.target.value)}
+        onClick={()=>setShowFrom(true)}
+        readOnly
       />
 
-      {/* ✅ Added city list for source */}
-      <ul>
-        {cities.map((city,index)=>(
-          <li key={index} onClick={()=>setFrom(city)}>
-            {city}
-          </li>
-        ))}
-      </ul>
+      {showFrom && (
+        <ul>
+          {cities.map((city,index)=>(
+            <li key={index} onClick={()=>{setFrom(city); setShowFrom(false);}}>
+              {city}
+            </li>
+          ))}
+        </ul>
+      )}
 
+      {/* Destination City */}
       <input
         type="text"
         placeholder="Destination City"
         value={to}
-        onChange={(e) => setTo(e.target.value)}
+        onClick={()=>setShowTo(true)}
+        readOnly
       />
 
-      {/* ✅ Added city list for destination */}
-      <ul>
-        {cities.map((city,index)=>(
-          <li key={index} onClick={()=>setTo(city)}>
-            {city}
-          </li>
-        ))}
-      </ul>
+      {showTo && (
+        <ul>
+          {cities.map((city,index)=>(
+            <li key={index} onClick={()=>{setTo(city); setShowTo(false);}}>
+              {city}
+            </li>
+          ))}
+        </ul>
+      )}
 
       <input 
-          type="date"
-          placeholder="dd/mm/yy"
-          onChange={(e) => setJourneyDate(e.target.value)}
+        type="date"
+        onChange={(e) => setJourneyDate(e.target.value)}
       />
 
       <button onClick={handleSearch}>Search Flight</button>
